@@ -2,7 +2,12 @@ import telebot
 import config
 
 bot = telebot.TeleBot(config.TOKEN)
- 
+
+@bot.message_handler(content_types=["new_chat_members"])
+def handler_new_member(message):
+    user_name = message.new_chat_member.first_name
+    bot.send_message(message.chat.id, "привет {0}!".format(user_name))
+
 @bot.message_handler(commands=['hi'])
 def welcome(message):
     bot.send_message(message.chat.id, "привет {0.first_name}, я рерсик".format(message.from_user, bot.get_me()))
