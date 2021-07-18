@@ -3,11 +3,6 @@ import config
 
 bot = telebot.TeleBot(config.TOKEN)
 
-@bot.message_handler(content_types=["new_chat_members"])
-def handler_new_member(message):
-    user_name = message.new_chat_member.first_name
-    bot.send_message(message.chat.id, "привет {0}!".format(user_name))
-
 @bot.message_handler(commands=['hi'])
 def welcome(message):
     bot.send_message(message.chat.id, "привет {0.first_name}, я рерсик".format(message.from_user, bot.get_me()))
@@ -15,6 +10,11 @@ def welcome(message):
 @bot.message_handler(commands=['zalupa'])
 def send(message):
     bot.send_message(message.chat.id, "😻".format(message.from_user, bot.get_me()))
+
+@bot.message_handler(content_types=['new_chat_members'])
+def handler_new_member(message):
+    user_name = message.new_chat_member.first_name
+    bot.send_message(message.chat.id, "привет {0}!".format(user_name))
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
