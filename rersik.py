@@ -11,7 +11,7 @@ def welcome(message):
 def send(message):
     bot.send_message(message.chat.id, "😻".format(message.from_user, bot.get_me()))
 
-@bot.message_handler(content_types=['new_chat_members'])
+@bot.message_handler(content_types=["new_chat_members"])
 def handler_new_member(message):
     user_name = message.new_chat_member.first_name
     bot.send_message(message.chat.id, "привет {0}!".format(user_name))
